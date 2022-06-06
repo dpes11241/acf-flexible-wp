@@ -1,45 +1,30 @@
-=== Twenty Nineteen ===
-Contributors: wordpressdotorg
-Tags: one-column, flexible-header, accessibility-ready, custom-colors, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, rtl-language-support, sticky-post, threaded-comments, translation-ready
-Requires at least: 4.9.6
-Tested up to: WordPress 5.0
-Requires PHP: 5.2.4
-Stable tag: 1.4
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Filename: page.php
+<?php if( have_rows('content') ): ?>
+    <?php while( have_rows('content') ): the_row(); ?>
+        <?php if( get_row_layout() == 'columns_section' ): ?>
+			<?php get_template_part('template-parts/section','test')?>
+        <?php endif; ?>
+		<?php if( get_row_layout() == 'column_two' ): ?>
+			<?php get_template_part('template-parts/section','test2')?>
+        <?php endif; ?>
+    <?php endwhile; ?>
+<?php endif; ?>
 
-Our 2019 default theme is designed to show off the power of the block editor.
 
-== Description ==
-Our 2019 default theme is designed to show off the power of the block editor. It features custom styles for all the default blocks, and is built so that what you see in the editor looks like what you'll see on your website. Twenty Nineteen is designed to be adaptable to a wide range of websites, whether you’re running a photo blog, launching a new business, or supporting a non-profit. Featuring ample whitespace and modern sans-serif headlines paired with classic serif body text, it's built to be beautiful on all screen sizes.
 
-== Changelog ==
+Filename:  tempalte/parts/section-test.php
 
-= 1.4 =
-* Released: May 7, 2019
+<?php $columns = get_sub_field( 'columns' );
+foreach($columns as $column): ?>
+<h3><?php echo $column['title']?></h3>
+<h4><?php echo $column['content']?></h4>
+<?php endforeach; ?>
 
-https://codex.wordpress.org/Twenty_Nineteen_Theme_Changelog#Version_1.4
 
-= 1.3 =
-* Released: February 21, 2019
 
-https://codex.wordpress.org/Twenty_Nineteen_Theme_Changelog#Version_1.3
-
-= 1.2 =
-* Released: January 9, 2019
-
-https://codex.wordpress.org/Twenty_Nineteen_Theme_Changelog#Version_1.2
-
-= 1.1 =
-* Released: December 19, 2018
-
-https://codex.wordpress.org/Twenty_Nineteen_Theme_Changelog#Version_1.1
-
-= 1.0 =
-* Released: December 6, 2018
-
-Initial release
-
-== Resources ==
-* normalize.css, © 2012-2018 Nicolas Gallagher and Jonathan Neal, MIT
-* Underscores, © 2012-2018 Automattic, Inc., GNU GPL v2 or later
+Filename:  tempalte/parts/section-test2.php
+<?php  $columns = get_sub_field( 'columns' );
+foreach($columns as $column): ?>
+<h4><?php echo $column['caption']?></h4>
+<img src="<?php echo $column['img']['url']?>" alt="">
+<?php endforeach; ?>
